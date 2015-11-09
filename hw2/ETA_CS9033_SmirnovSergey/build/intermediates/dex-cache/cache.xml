@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/sergey/Library/Android/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67">
+        <dex dex="/Users/sergey/Dropbox/NYU/CS-GY 9033/hw2/ETA_CS9033_SmirnovSergey/app/build/intermediates/pre-dexed/debug/support-v4-19.1.0-5aa9b7f56ec009e75ba6dbc6a6eef0c95a6a8a81.jar" />
+    </item>
+
+</items>
