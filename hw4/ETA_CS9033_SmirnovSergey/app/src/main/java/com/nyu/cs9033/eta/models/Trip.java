@@ -1,5 +1,6 @@
 package com.nyu.cs9033.eta.models;
 
+import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
@@ -15,7 +16,10 @@ public class Trip implements Parcelable
     private int trip_id;
     private String trip_name;
     private String destination;
-    private String date;
+    private double latitude;
+    private double longitude;
+    //private String date;
+    private long date;
     private ArrayList<Person> people;
 
     /**
@@ -53,7 +57,9 @@ public class Trip implements Parcelable
     {
         this.trip_id = p.readInt();
         this.trip_name = p.readString();
-        this.date = p.readString();
+        this.date = p.readLong();
+        this.latitude = p.readDouble();
+        this.longitude = p.readDouble();
         this.destination = p.readString();
         p.readTypedList(people, Person.CREATOR);
 
@@ -70,18 +76,20 @@ public class Trip implements Parcelable
      * Add arbitrary number of arguments to
      * instantiate Trip class based on member variables.
      */
-    public Trip(String nm, String dt, String dst, ArrayList<Person> p, int id)
+    public Trip(String nm, long dt, double lat, double lon, String dst, ArrayList<Person> p, int id)
     {
         trip_name = nm;
         date = dt;
+        latitude = lat;
+        longitude = lon;
         destination = dst;
         people = p;
         trip_id = id;
     }
 
-    public Trip(String nm, String dt, String dst, ArrayList<Person> p)
+    public Trip(String nm, long dt, double lat, double lon, String dst, ArrayList<Person> p)
     {
-        this(nm, dt, dst, p, -1);
+        this(nm, dt, lat, lon, dst, p, -1);
     }
 
     /**
@@ -102,7 +110,9 @@ public class Trip implements Parcelable
     {
         dest.writeInt(trip_id);
         dest.writeString(trip_name);
-        dest.writeString(date);
+        dest.writeLong(date);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
         dest.writeString(destination);
         dest.writeTypedList(people);
     }
@@ -128,13 +138,17 @@ public class Trip implements Parcelable
      * Get the date & time of the trip
      * @return date the datetime
      */
-    public String getDate() { return date; }
+    public long getDate() { return date; }
 
     /**
      * Get the destination of the trip
      * @return destination the destination
      */
     public String getDestination() { return destination; }
+
+    public double getLatitude() { return latitude; }
+
+    public double getLongitude() { return longitude; }
 
     public int getTripID() { return trip_id; }
 

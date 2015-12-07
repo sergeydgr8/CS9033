@@ -14,6 +14,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ViewTripActivity extends Activity {
 
     private static final String TAG = "ViewTripActivity";
@@ -63,8 +66,11 @@ public class ViewTripActivity extends Activity {
             TextView trip_attendees = (TextView) findViewById(R.id.attendees_view_text);
 
             trip_name.setText(trip.getTripName());
-            trip_destination.setText(trip.getDestination());
-            trip_datetime.setText(trip.getDate());
+            trip_destination.setText(trip.getDestination() + " (" + trip.getLatitude()
+                + ", " + trip.getLongitude() + ")");
+
+            SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+            trip_datetime.setText(sdf.format(new Date(trip.getDate() * 1000)));
 
             for (Person p : trip.getPeople())
             {

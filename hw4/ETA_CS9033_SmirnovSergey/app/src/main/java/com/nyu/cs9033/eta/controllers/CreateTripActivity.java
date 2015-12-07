@@ -8,7 +8,9 @@ import com.nyu.cs9033.eta.database.TripDatabaseHelper;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.location.Location;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -18,7 +20,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.HttpConnection;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class CreateTripActivity extends Activity
 {
@@ -32,6 +44,8 @@ public class CreateTripActivity extends Activity
     private final Uri HW3API_LOC_URI = Uri.parse("location://com.example.nyu.hw3api");
 
     private static final String TAG = "CreateTripActivity";
+
+    private ArrayList<String> LocationData;
     
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -90,11 +104,13 @@ public class CreateTripActivity extends Activity
      * @param data the data received
      * @return a string of the location
      */
-    public String GetHW3APIData(Intent data)
+    public ArrayList<String> GetHW3APIData(Intent data)
     {
-        ArrayList<String> result = data.getExtras().getStringArrayList("retVal");
-        String retstring = result.get(0) + ", " + result.get(1);
-        return retstring;
+        return data.getExtras().getStringArrayList("retVal");
+        //ArrayList<String> result = data.getExtras().getStringArrayList("retVal");
+        /*String retstring = result.get(0) + ", " + result.get(1) + " (" + result.get(2) + ", "
+                + result.get(3) + ")";
+        return retstring;*/
     }
 
     /**
@@ -156,7 +172,7 @@ public class CreateTripActivity extends Activity
         }
         catch (Exception e)
         {
-            Log.i(TAG, "Exception in GetContactData: " + e.toString());
+            Log.e(TAG, "Exception in GetContactData: " + e.toString());
         }
 
     }
@@ -177,12 +193,19 @@ public class CreateTripActivity extends Activity
 
         try
         {
-            return new Trip(trip_name_input.getText().toString(), trip_date_input.getText().toString(),
-                trip_destination_input.getText().toString(), people);
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm MM/dd/yyyy");
+            Date dt = sdf.parse(trip_date_input.getText().toString());
+            long epoch = dt.getTime() / 1000;
+
+            double lat = Double.parseDouble(LocationData.get(2));
+            double lon = Double.parseDouble(LocationData.get(3));
+
+            return new Trip(trip_name_input.getText().toString(), epoch, lat, lon,
+                    trip_destination_input.getText().toString(), people);
         }
         catch (Exception e)
         {
-            Log.i(TAG, "Exception in createTrip: " + e.toString());
+            Log.e(TAG, "Exception in createTrip: " + e.toString());
             Toast.makeText(this, "Error: " + e.toString(), Toast.LENGTH_LONG).show();
             return null;
         }
@@ -214,10 +237,47 @@ public class CreateTripActivity extends Activity
         catch (Exception e)
         {
             Toast.makeText(this, "Exception in saveTrip: " + e.toString(), Toast.LENGTH_SHORT).show();
-            Log.i(TAG, "Exception in saveTrip: " + e.toString());
+            Log.e(TAG, "Exception in saveTrip: " + e.toString());
             return false;
         }
     }
+
+    /**
+     * This method sends the CREATE_TRIP request to the specified URL
+     * @param our_url the URL we pass in
+     * @return the JSON containing the trip's ID
+     * @throws IOException
+     */
+    /*public String getResponseString(String our_url) throws IOException
+    {
+        URL url = new URL(our_url);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "application/json");
+
+        try
+        {
+            JSONObject trip_request = new JSONObject();
+            trip_request.put("command", "CREATE_TRIP");
+            trip_request.put("location", new JSONArray())
+        }
+    }
+
+    private class CreateTripTask extends AsyncTask<String, Void, String>
+    {
+        @Override
+        protected String doInBackground(String... urls) {
+            try
+            {
+                return null;
+            }
+            catch (IOException e)
+            {
+                Log.e(TAG, "Exception in CreateTripTask: " + e.toString());
+            }
+        }
+    }*/
 
     /**
      * This method should be used when a
@@ -247,7 +307,9 @@ public class CreateTripActivity extends Activity
         {
             case SEARCH_LOCATION:
                 TextView search_loc = (TextView) findViewById(R.id.choose_destination_text);
-                search_loc.setText(GetHW3APIData(data));
+                LocationData = GetHW3APIData(data);
+                search_loc.setText(LocationData.get(0) + ", " + LocationData.get(1));
+                //search_loc.setText(GetHW3APIData(data));
                 break;
             case REQUEST_CONTACT:
                 GetContactData(data);

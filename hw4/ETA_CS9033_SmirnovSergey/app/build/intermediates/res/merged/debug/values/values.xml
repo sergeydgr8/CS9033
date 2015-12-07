@@ -9,7 +9,7 @@
     <string name="action_settings">Settings</string>
     <string name="app_name">ETA</string>
     <string name="create_trip_welcome">Please enter information below to create your trip:</string>
-    <string name="date_prompt_create_string">Date:</string>
+    <string name="date_prompt_create_string">Enter your date with format HH:MM MM/DD/YYYY:</string>
     <string name="destination_create_trip_string">Destination:</string>
     <string name="eta_title_main_activity">ETA</string>
     <string name="hello_world">Hello world!</string>
