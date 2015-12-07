@@ -22,9 +22,15 @@ import android.widget.Toast;
 
 import org.apache.http.HttpConnection;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -248,19 +254,58 @@ public class CreateTripActivity extends Activity
      * @return the JSON containing the trip's ID
      * @throws IOException
      */
-    /*public String getResponseString(String our_url) throws IOException
+    public String getResponseString(String our_url) throws IOException
     {
+        Trip trip_to_send = createTrip();
+
         URL url = new URL(our_url);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Content-Type", "application/json");
 
+        String create_request = new String();
+
         try
         {
             JSONObject trip_request = new JSONObject();
             trip_request.put("command", "CREATE_TRIP");
-            trip_request.put("location", new JSONArray())
+            trip_request.put("location", new JSONArray(LocationData));
+            trip_request.put("datetime", trip_to_send.getDate());
+            trip_request.put("people", new JSONArray(trip_to_send.getPeopleDetails()));
+
+            create_request = trip_request.toString();
+        }
+        catch (JSONException e)
+        {
+            Log.e(TAG, "Exception in getResponseString: " + e.toString());
+        }
+
+        try
+        {
+            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+            out.write(create_request);
+            out.close();
+
+            if (connection.getResponseCode() != HttpURLConnection.HTTP_OK)
+            {
+                Log.e(TAG, "Error in HTTP Connection: " + connection.getResponseMessage());
+                return null;
+            }
+
+            InputStream is = connection.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            String server_data;
+            StringBuilder response_string = new StringBuilder();
+            while ((server_data = br.readLine()) != null)
+                response_string.append(server_data);
+            is.close();
+
+            return response_string.toString();
+        }
+        finally
+        {
+            connection.disconnect();
         }
     }
 
@@ -270,14 +315,15 @@ public class CreateTripActivity extends Activity
         protected String doInBackground(String... urls) {
             try
             {
-                return null;
+                return getResponseString(urls[0]);
             }
             catch (IOException e)
             {
                 Log.e(TAG, "Exception in CreateTripTask: " + e.toString());
+                return "Error! Check the URL.";
             }
         }
-    }*/
+    }
 
     /**
      * This method should be used when a

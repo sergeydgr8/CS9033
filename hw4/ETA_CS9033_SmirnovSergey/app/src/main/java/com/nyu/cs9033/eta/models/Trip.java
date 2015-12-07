@@ -161,6 +161,14 @@ public class Trip implements Parcelable
         return people;
     }
 
+    public ArrayList<String> getPeopleDetails()
+    {
+        ArrayList<String> ret = new ArrayList<String>();
+        for (Person p : people)
+            ret.add(p.getPersonName() + " - " + p.getPhoneNumber() + " - " + p.getEmailAddress());
+        return ret;
+    }
+
     public void ChangeID(int newID)
     {
         trip_id = newID;
