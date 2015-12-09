@@ -13,7 +13,7 @@ public class Trip implements Parcelable
     
     // Member fields should exist here, what else do you need for a trip?
     // Please add additional fields
-    private int trip_id;
+    private long trip_id;
     private String trip_name;
     private String destination;
     private double latitude;
@@ -55,7 +55,7 @@ public class Trip implements Parcelable
 
     public void readFromParcel(Parcel p)
     {
-        this.trip_id = p.readInt();
+        this.trip_id = p.readLong();
         this.trip_name = p.readString();
         this.date = p.readLong();
         this.latitude = p.readDouble();
@@ -76,7 +76,7 @@ public class Trip implements Parcelable
      * Add arbitrary number of arguments to
      * instantiate Trip class based on member variables.
      */
-    public Trip(String nm, long dt, double lat, double lon, String dst, ArrayList<Person> p, int id)
+    public Trip(String nm, long dt, double lat, double lon, String dst, ArrayList<Person> p, long id)
     {
         trip_name = nm;
         date = dt;
@@ -108,7 +108,7 @@ public class Trip implements Parcelable
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
-        dest.writeInt(trip_id);
+        dest.writeLong(trip_id);
         dest.writeString(trip_name);
         dest.writeLong(date);
         dest.writeDouble(latitude);
@@ -150,7 +150,7 @@ public class Trip implements Parcelable
 
     public double getLongitude() { return longitude; }
 
-    public int getTripID() { return trip_id; }
+    public long getTripID() { return trip_id; }
 
     /**
      * Get the people attending this event

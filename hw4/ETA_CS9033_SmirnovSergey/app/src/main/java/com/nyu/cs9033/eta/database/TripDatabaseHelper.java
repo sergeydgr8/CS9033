@@ -75,7 +75,8 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
         try
         {
             db.execSQL("CREATE TABLE " + TRIPS_TABLE_NAME + "("
-                + TRIP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                //+ TRIP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + TRIP_ID + " INTEGER PRIMARY KEY, "
                 + TRIP_NAME + " VARCHAR(255), "
                 + TRIP_DEST + " VARCHAR(255), "
                 + TRIP_LAT + " REAL, "
@@ -120,7 +121,7 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
      * @param trip the trip to be inserted
      * @return the unique ID in the database
      */
-    public int InsertTrip(Trip trip)
+    public int InsertTripAndGetID(Trip trip)
     {
         try
         {
@@ -138,6 +139,25 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
             Log.i(TAG, "Exception in InsertTrip: " + e.toString());
         }
         return -1;
+    }
+
+    public void InsertTrip(Trip trip)
+    {
+        try
+        {
+            ContentValues cv = new ContentValues();
+            cv.put(TRIP_ID, trip.getTripID());
+            cv.put(TRIP_NAME, trip.getTripName());
+            cv.put(TRIP_DATE, trip.getDate());
+            cv.put(TRIP_LAT, trip.getLatitude());
+            cv.put(TRIP_LON, trip.getLongitude());
+            cv.put(TRIP_DEST, trip.getDestination());
+            long temp = getWritableDatabase().insert(TRIPS_TABLE_NAME, null, cv);
+        }
+        catch (Exception e)
+        {
+            Log.e(TAG, "Exception in InsertTrip: " + e.toString());
+        }
     }
 
     /**
@@ -168,7 +188,8 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
         try
         {
             if (trip.getTripID() == -1)
-                trip.ChangeID(InsertTrip(trip));
+                trip.ChangeID(InsertTripAndGetID(trip));
+            else InsertTrip(trip);
             for (Person p : trip.getPeople())
             {
                 if (p.getUserID() == -1)

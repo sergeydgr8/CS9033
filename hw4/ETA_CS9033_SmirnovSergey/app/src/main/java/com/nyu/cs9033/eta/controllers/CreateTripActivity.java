@@ -67,8 +67,9 @@ public class CreateTripActivity extends Activity
             @Override
             public void onClick(View view)
             {
-                Trip trip = createTrip();
-                saveTrip(trip);
+                //Trip trip = createTrip();
+                //saveTrip(trip);
+                new CreateTripTask().execute("http://cs9033-homework.appspot.com");
             }
         });
 
@@ -236,7 +237,7 @@ public class CreateTripActivity extends Activity
             TripDatabaseHelper db_helper = new TripDatabaseHelper(getApplicationContext());
             db_helper.PopulateTrips(trip);
             Toast.makeText(this, "Trip added to database!", Toast.LENGTH_SHORT).show();
-            Log.i(TAG, "Inserted into database!");
+            Log.i(TAG, "Inserted into database! ID: " + trip.getTripID());
             this.finish();
             return true;
         }
@@ -312,7 +313,8 @@ public class CreateTripActivity extends Activity
     private class CreateTripTask extends AsyncTask<String, Void, String>
     {
         @Override
-        protected String doInBackground(String... urls) {
+        protected String doInBackground(String... urls)
+        {
             try
             {
                 return getResponseString(urls[0]);
@@ -321,6 +323,51 @@ public class CreateTripActivity extends Activity
             {
                 Log.e(TAG, "Exception in CreateTripTask: " + e.toString());
                 return "Error! Check the URL.";
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result)
+        {
+            try
+            {
+                JSONObject create_trip_response = new JSONObject(result);
+                /*if (create_trip_response.getInt("response_code") == 0)
+                {
+                    Trip new_trip = createTrip();
+                    new_trip.ChangeID(create_trip_response.getInt("trip_id"));
+                    saveTrip(new_trip);
+                }*/
+                if (create_trip_response.getInt("response_code") != 0)
+                {
+                    Log.e(TAG, "Error in HTTP request.");
+                    return;
+                }
+
+                long trip_id = create_trip_response.getLong("trip_id");
+                JSONArray loc_data = create_trip_response.getJSONArray("location");
+                String loc_name = loc_data.get(0).toString();
+                String loc_addr = loc_data.get(1).toString();
+                String dest = loc_name + ", " + loc_addr;
+                double loc_lon = Double.parseDouble(loc_data.get(2).toString());
+                double loc_lat = Double.parseDouble(loc_data.get(3).toString());
+                long dt = create_trip_response.getLong("datetime");
+                JSONArray people_from_json = create_trip_response.getJSONArray("people");
+                ArrayList<Person> ppl = new ArrayList<Person>();
+                for (int i = 0; i < people_from_json.length(); i++)
+                {
+                    ppl.add(new Person(people_from_json.get(i).toString(), "-1", "-1"));
+                }
+                Trip newtrip = new Trip("Trip to " + loc_name, dt, loc_lon, loc_lat, dest, ppl, trip_id);
+                saveTrip(newtrip);
+
+                Log.i(TAG, "Inserted into database! ID: " + newtrip.getTripID());
+
+                finish();
+            }
+            catch (JSONException e)
+            {
+                Log.e(TAG, "Exception in onPostExecute: " + e.toString());
             }
         }
     }
