@@ -47,7 +47,7 @@ public class TripHistoryActivity extends Activity
                 trip_titles);
 
         ArrayList<String> current_trip_titles = new ArrayList<String>();
-        ArrayList<Long> current_trip_ids = new ArrayList<Long>();
+        final ArrayList<Long> current_trip_ids = new ArrayList<Long>();
         for (Trip t : trips)
         {
             if (t.isCurrent())
@@ -91,7 +91,7 @@ public class TripHistoryActivity extends Activity
             {
                 try
                 {
-                    long actual_id = trip_ids.get(position);
+                    long actual_id = current_trip_ids.get(position);
                     Intent view_trip_intent = new Intent(getApplicationContext(), ViewTripActivity.class);
                     view_trip_intent.putExtra("id", actual_id);
                     startActivity(view_trip_intent);

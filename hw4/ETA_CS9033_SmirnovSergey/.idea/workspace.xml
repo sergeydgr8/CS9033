@@ -41,6 +41,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="ViewCurrentTripActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/nyu/cs9033/eta/controllers/ViewCurrentTripActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="113" column="13" selection-start-line="113" selection-start-column="13" selection-end-line="113" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="activity_view_trip.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_view_trip.xml">
           <provider selected="true" editor-type-id="android-designer">
@@ -54,21 +64,34 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="activity_view_current_trip.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_view_current_trip.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="38.551723">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="TripHistoryActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/nyu/cs9033/eta/controllers/TripHistoryActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.64285713">
-              <caret line="101" column="32" selection-start-line="101" selection-start-column="32" selection-end-line="101" selection-end-column="32" />
+            <state vertical-scroll-proportion="0.75274724">
+              <caret line="55" column="37" selection-start-line="55" selection-start-column="37" selection-end-line="55" selection-end-column="37" />
               <folding>
                 <element signature="e#1269#1275#0" expanded="true" />
                 <element signature="e#1470#1478#0" expanded="true" />
                 <element signature="e#1629#1637#0" expanded="true" />
-                <element signature="e#1697#1703#0" expanded="true" />
-                <element signature="e#1989#1997#0" expanded="true" />
-                <element signature="e#2197#3272#0" expanded="true" />
-                <element signature="e#3271#3272#0" expanded="true" />
-                <element signature="e#3392#4265#0" expanded="true" />
-                <element signature="e#4264#4265#0" expanded="true" />
+                <element signature="e#1703#1709#0" expanded="true" />
+                <element signature="e#1995#2003#0" expanded="true" />
+                <element signature="e#2203#3278#0" expanded="true" />
+                <element signature="e#3277#3278#0" expanded="true" />
+                <element signature="e#3398#4279#0" expanded="true" />
+                <element signature="e#4278#4279#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -125,19 +148,6 @@
                 <element signature="e#4735#4736#0" expanded="true" />
                 <element signature="e#4766#4767#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activity_create_trip.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_create_trip.xml">
-          <provider selected="true" editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="54" column="36" selection-start-line="54" selection-start-column="36" selection-end-line="54" selection-end-column="36" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -1571,6 +1581,7 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/nyu/cs9033/eta/database/TripDatabaseHelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_view_trip.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/nyu/cs9033/eta/controllers/ViewTripActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/nyu/cs9033/eta/controllers/ViewCurrentTripActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/nyu/cs9033/eta/controllers/TripHistoryActivity.java" />
       </list>
     </option>
@@ -1773,6 +1784,14 @@
     <property name="DEBUGGABLE_DEVICE" value="motorola-nexus_6-ZX1G22QR7F" />
     <property name="DEBUGGABLE_PROCESS" value="com.nyu.cs9033.eta" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/res/layout" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.nyu.cs9033.eta.controllers" />
+    </key>
   </component>
   <component name="RunManager" selected="Android Application.app">
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -1982,7 +2001,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32943925" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32943925" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32943925" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24969475" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -2149,16 +2168,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/nyu/cs9033/eta/controllers/CreateTripActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="66" column="12" selection-start-line="66" selection-start-column="12" selection-end-line="68" selection-end-column="13" />
-          <folding>
-            <element signature="e#2371#2372#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/nyu/cs9033/eta/controllers/ViewTripActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2167,17 +2176,6 @@
             <element signature="e#1039#1723#0" expanded="true" />
             <element signature="e#1722#1723#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_view_trip.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="50" selection-start-line="32" selection-start-column="50" selection-end-line="32" selection-end-column="50" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2213,20 +2211,60 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_view_current_trip.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="38.551723">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_view_trip.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="50" selection-start-line="32" selection-start-column="50" selection-end-line="32" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/nyu/cs9033/eta/controllers/CreateTripActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="66" column="12" selection-start-line="66" selection-start-column="12" selection-end-line="68" selection-end-column="13" />
+          <folding>
+            <element signature="e#2371#2372#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/nyu/cs9033/eta/controllers/ViewCurrentTripActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="113" column="13" selection-start-line="113" selection-start-column="13" selection-end-line="113" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/nyu/cs9033/eta/controllers/TripHistoryActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.64285713">
-          <caret line="101" column="32" selection-start-line="101" selection-start-column="32" selection-end-line="101" selection-end-column="32" />
+        <state vertical-scroll-proportion="0.75274724">
+          <caret line="55" column="37" selection-start-line="55" selection-start-column="37" selection-end-line="55" selection-end-column="37" />
           <folding>
             <element signature="e#1269#1275#0" expanded="true" />
             <element signature="e#1470#1478#0" expanded="true" />
             <element signature="e#1629#1637#0" expanded="true" />
-            <element signature="e#1697#1703#0" expanded="true" />
-            <element signature="e#1989#1997#0" expanded="true" />
-            <element signature="e#2197#3272#0" expanded="true" />
-            <element signature="e#3271#3272#0" expanded="true" />
-            <element signature="e#3392#4265#0" expanded="true" />
-            <element signature="e#4264#4265#0" expanded="true" />
+            <element signature="e#1703#1709#0" expanded="true" />
+            <element signature="e#1995#2003#0" expanded="true" />
+            <element signature="e#2203#3278#0" expanded="true" />
+            <element signature="e#3277#3278#0" expanded="true" />
+            <element signature="e#3398#4279#0" expanded="true" />
+            <element signature="e#4278#4279#0" expanded="true" />
           </folding>
         </state>
       </provider>
