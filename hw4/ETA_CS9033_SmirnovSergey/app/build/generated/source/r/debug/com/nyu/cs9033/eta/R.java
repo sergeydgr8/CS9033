@@ -18,9 +18,9 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f080012;
+        public static final int action_settings=0x7f080013;
         public static final int added_attendees=0x7f080007;
-        public static final int attendees_view_text=0x7f080010;
+        public static final int attendees_view_text=0x7f080011;
         public static final int chooseContactsBtn=0x7f080008;
         public static final int chooseDestinationBtn=0x7f080005;
         public static final int choose_destination_text=0x7f080006;
@@ -30,13 +30,14 @@ public final class R {
         public static final int enter_destination_area=0x7f080002;
         public static final int enter_destination_location=0x7f080003;
         public static final int enter_destination_type=0x7f080004;
-        public static final int list_of_trips=0x7f08000c;
+        public static final int list_of_current_trips=0x7f08000c;
+        public static final int list_of_trips=0x7f08000d;
         public static final int trip_name=0x7f080000;
-        public static final int trip_row=0x7f080011;
+        public static final int trip_row=0x7f080012;
         public static final int viewTripButton=0x7f08000b;
-        public static final int view_trip_datetime=0x7f08000f;
-        public static final int view_trip_destination=0x7f08000e;
-        public static final int view_trip_name=0x7f08000d;
+        public static final int view_trip_datetime=0x7f080010;
+        public static final int view_trip_destination=0x7f08000f;
+        public static final int view_trip_name=0x7f08000e;
     }
     public static final class layout {
         public static final int activity_create_trip=0x7f030000;

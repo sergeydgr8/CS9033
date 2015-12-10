@@ -345,7 +345,7 @@ public class CreateTripActivity extends Activity
                 }
 
                 long trip_id = create_trip_response.getLong("trip_id");
-                JSONArray loc_data = create_trip_response.getJSONArray("location");
+                /*JSONArray loc_data = create_trip_response.getJSONArray("location");
                 String loc_name = loc_data.get(0).toString();
                 String loc_addr = loc_data.get(1).toString();
                 String dest = loc_name + ", " + loc_addr;
@@ -359,6 +359,10 @@ public class CreateTripActivity extends Activity
                     ppl.add(new Person(people_from_json.get(i).toString(), "-1", "-1"));
                 }
                 Trip newtrip = new Trip("Trip to " + loc_name, dt, loc_lon, loc_lat, dest, ppl, trip_id);
+                saveTrip(newtrip);*/
+
+                Trip newtrip = createTrip();
+                newtrip.ChangeID(trip_id);
                 saveTrip(newtrip);
 
                 Log.i(TAG, "Inserted into database! ID: " + newtrip.getTripID());

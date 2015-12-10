@@ -29,17 +29,33 @@ public class TripHistoryActivity extends Activity
         setContentView(R.layout.activity_trip_history);
         setTitle("ETA: Trip History");
         ListView layout_list_of_trips = (ListView) findViewById(R.id.list_of_trips);
+        ListView layout_of_current_trips = (ListView) findViewById(R.id.list_of_current_trips);
 
         TripDatabaseHelper db_helper = new TripDatabaseHelper(getApplicationContext());
         ArrayList<Trip> trips = db_helper.GetAllTrips();
-        ArrayList<String> trip_titles = new ArrayList<String>();
-        for (Trip t : trips)
-            trip_titles.add(t.getTripName());
 
+        ArrayList<String> trip_titles = new ArrayList<String>();
+        final ArrayList<Long> trip_ids = new ArrayList<Long>();
+        for (Trip t : trips)
+        {
+            trip_titles.add(t.getTripName());
+            trip_ids.add(t.getTripID());
+        }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this,
                 R.layout.trip_row,
                 trip_titles);
+
+        ArrayList<String> current_trip_titles = new ArrayList<String>();
+        ArrayList<Long> current_trip_ids = new ArrayList<Long>();
+        for (Trip t : trips)
+        {
+            if (t.isCurrent())
+            {
+                current_trip_titles.add(t.getTripName());
+                current_trip_ids.add(t.getTripID());
+            }
+        }
 
         layout_list_of_trips.setAdapter(adapter);
 
@@ -50,7 +66,8 @@ public class TripHistoryActivity extends Activity
             {
                 try
                 {
-                    int actual_id = (int)id + 1;
+                    //int actual_id = (int)id + 1;
+                    long actual_id = trip_ids.get(position);
                     Intent view_trip_intent = new Intent(getApplicationContext(), ViewTripActivity.class);
                     view_trip_intent.putExtra("id", actual_id);
                     startActivity(view_trip_intent);

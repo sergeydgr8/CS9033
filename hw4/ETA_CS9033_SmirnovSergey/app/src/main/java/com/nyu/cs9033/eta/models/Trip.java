@@ -21,6 +21,7 @@ public class Trip implements Parcelable
     //private String date;
     private long date;
     private ArrayList<Person> people;
+    private boolean current;
 
     /**
      * Parcelable creator. Do not modify this function.
@@ -61,6 +62,7 @@ public class Trip implements Parcelable
         this.latitude = p.readDouble();
         this.longitude = p.readDouble();
         this.destination = p.readString();
+        this.current = false;
         p.readTypedList(people, Person.CREATOR);
 
     }
@@ -85,6 +87,7 @@ public class Trip implements Parcelable
         destination = dst;
         people = p;
         trip_id = id;
+        current = false;
     }
 
     public Trip(String nm, long dt, double lat, double lon, String dst, ArrayList<Person> p)
@@ -169,10 +172,16 @@ public class Trip implements Parcelable
         return ret;
     }
 
-    public void ChangeID(int newID)
+    public void ChangeID(long newID)
     {
         trip_id = newID;
     }
+
+    public boolean isCurrent() { return current; }
+
+    public void setAsCurrentTrip() { current = true; }
+
+    public void notCurrentAnymore() { current = false; }
     
     /**
      * Do not implement

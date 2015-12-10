@@ -27,6 +27,7 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
     private static final String TRIP_LAT = "latitude";
     private static final String TRIP_LON = "longitude";
     private static final String TRIP_DATE = "date";
+    private static final String CURRENT_TRIP = "current";
 
     // people table
     private static final String PEOPLE_TABLE_NAME = "people";
@@ -46,7 +47,8 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
             TRIP_ID,
             TRIP_NAME,
             TRIP_DEST,
-            TRIP_DATE
+            TRIP_DATE,
+            CURRENT_TRIP
     };
     private String people_columns[] = {
             PEOPLE_TABLE_NAME,
@@ -76,12 +78,13 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
         {
             db.execSQL("CREATE TABLE " + TRIPS_TABLE_NAME + "("
                 //+ TRIP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + TRIP_ID + " INTEGER PRIMARY KEY, "
+                + TRIP_ID + " LONG PRIMARY KEY, "
                 + TRIP_NAME + " VARCHAR(255), "
                 + TRIP_DEST + " VARCHAR(255), "
                 + TRIP_LAT + " REAL, "
                 + TRIP_LON + " REAL, "
-                + TRIP_DATE + " LONG)");
+                + TRIP_DATE + " LONG, "
+                + CURRENT_TRIP + " INTEGER)");
 
             db.execSQL("CREATE TABLE " + PEOPLE_TABLE_NAME + "("
                 + PERSON_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -92,7 +95,7 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
             db.execSQL("CREATE TABLE " + PEOPLE_TRIP_TABLE_NAME + "("
                 + PT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + PT_PERSON_ID + " INTEGER, "
-                + PT_TRIP_ID + " INTEGER)");
+                + PT_TRIP_ID + " LONG)");
         }
         catch (SQLException e)
         {
@@ -121,7 +124,7 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
      * @param trip the trip to be inserted
      * @return the unique ID in the database
      */
-    public int InsertTripAndGetID(Trip trip)
+    public long InsertTripAndGetID(Trip trip)
     {
         try
         {
@@ -131,8 +134,9 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
             cv.put(TRIP_LAT, trip.getLatitude());
             cv.put(TRIP_LON, trip.getLongitude());
             cv.put(TRIP_DEST, trip.getDestination());
-            long newID = getWritableDatabase().insert(TRIPS_TABLE_NAME, null, cv);
-            return (int) newID;
+            cv.put(CURRENT_TRIP, 0);
+            return getWritableDatabase().insert(TRIPS_TABLE_NAME, null, cv);
+            //return newID;
         }
         catch (Exception e)
         {
@@ -152,6 +156,7 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
             cv.put(TRIP_LAT, trip.getLatitude());
             cv.put(TRIP_LON, trip.getLongitude());
             cv.put(TRIP_DEST, trip.getDestination());
+            cv.put(CURRENT_TRIP, 0);
             long temp = getWritableDatabase().insert(TRIPS_TABLE_NAME, null, cv);
         }
         catch (Exception e)
@@ -206,7 +211,7 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
         }
     }
 
-    public Trip GetTrip(int id)
+    public Trip GetTrip(long id)
     {
         //Trip trip = new Trip();
         try
@@ -215,8 +220,11 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
             Cursor cursor = db.rawQuery("SELECT * FROM " + TRIPS_TABLE_NAME + " WHERE " +
                 TRIP_ID + "=" + id, null);
             cursor.moveToFirst();
-            return new Trip(cursor.getString(1), cursor.getLong(5), cursor.getDouble(3),
+            Trip t = new Trip(cursor.getString(1), cursor.getLong(5), cursor.getDouble(3),
                     cursor.getDouble(4), cursor.getString(2), GetAttendees(id), id);
+            if (cursor.getInt(6) == 1)
+                t.setAsCurrentTrip();
+            return t;
         }
         catch (SQLException e)
         {
@@ -237,8 +245,11 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
             {
                 ArrayList<Person> people = GetAttendees(cursor.getInt(0));
-                alltrips.add(new Trip(cursor.getString(1), cursor.getLong(5), cursor.getDouble(3),
-                        cursor.getDouble(4), cursor.getString(2), people, cursor.getInt(0)));
+                Trip trip_to_add = new Trip(cursor.getString(1), cursor.getLong(5), cursor.getDouble(3),
+                        cursor.getDouble(4), cursor.getString(2), people, cursor.getLong(0));
+                if (cursor.getInt(6) == 1)
+                    trip_to_add.setAsCurrentTrip();
+                alltrips.add(trip_to_add);
             }
             cursor.close();
         }
@@ -250,7 +261,7 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
         return alltrips;
     }
 
-    public ArrayList<Person> GetAttendees(int trip_id)
+    public ArrayList<Person> GetAttendees(long trip_id)
     {
         ArrayList<Person> attendees = new ArrayList<Person>();
         ArrayList<Integer> attendee_ids = new ArrayList<Integer>();

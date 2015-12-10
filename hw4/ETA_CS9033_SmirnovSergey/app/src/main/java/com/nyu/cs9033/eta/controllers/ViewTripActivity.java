@@ -47,7 +47,7 @@ public class ViewTripActivity extends Activity {
     public Trip getTrip(Intent i)
     {
         TripDatabaseHelper db = new TripDatabaseHelper(getApplicationContext());
-        return db.GetTrip(i.getIntExtra("id", -1));
+        return db.GetTrip(i.getLongExtra("id", -1));
     }
 
     /**
