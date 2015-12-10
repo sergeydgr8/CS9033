@@ -14,17 +14,24 @@
                   tools:context=".controllers.ViewTripActivity">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="null"
                 android:textSize="25sp"
                 android:textStyle="bold"
+                android:gravity="center"
                 android:id="@+id/view_trip_name"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Toggle current - OFF"
+                android:id="@+id/view_trip_toggle_current"/>
 
         </LinearLayout>
 

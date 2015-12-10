@@ -293,4 +293,48 @@ public class TripDatabaseHelper extends SQLiteOpenHelper
 
         return attendees;
     }
+
+    public void MakeTripCurrent(Trip t)
+    {
+        try
+        {
+            SQLiteDatabase db = this.getReadableDatabase();
+
+            ContentValues cv = new ContentValues();
+            cv.put(TRIP_NAME, t.getTripName());
+            cv.put(TRIP_DATE, t.getDate());
+            cv.put(TRIP_DEST, t.getDestination());
+            cv.put(TRIP_LAT, t.getLatitude());
+            cv.put(TRIP_LON, t.getLongitude());
+            cv.put(CURRENT_TRIP, 1);
+
+            db.update(TRIPS_TABLE_NAME, cv, TRIP_ID + "=" + t.getTripID(), null);
+        }
+        catch (Exception e)
+        {
+            Log.e(TAG, "Exception in MakeTripCurrent: " + e.toString());
+        }
+    }
+
+    public void RemoveFromCurrent(Trip t)
+    {
+        try
+        {
+            SQLiteDatabase db = this.getReadableDatabase();
+
+            ContentValues cv = new ContentValues();
+            cv.put(TRIP_NAME, t.getTripName());
+            cv.put(TRIP_DATE, t.getDate());
+            cv.put(TRIP_DEST, t.getDestination());
+            cv.put(TRIP_LAT, t.getLatitude());
+            cv.put(TRIP_LON, t.getLongitude());
+            cv.put(CURRENT_TRIP, 0);
+
+            db.update(TRIPS_TABLE_NAME, cv, TRIP_ID + "=" + t.getTripID(), null);
+        }
+        catch (Exception e)
+        {
+            Log.e(TAG, "Exception in RemoveFromCurrent: " + e.toString());
+        }
+    }
 }

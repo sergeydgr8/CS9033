@@ -56,17 +56,41 @@ public class TripHistoryActivity extends Activity
                 current_trip_ids.add(t.getTripID());
             }
         }
+        ArrayAdapter<String> current_adapter = new ArrayAdapter<String>(
+                this,
+                R.layout.trip_row,
+                current_trip_titles);
 
         layout_list_of_trips.setAdapter(adapter);
+        layout_list_of_trips.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    //int actual_id = (int)id + 1;
+                    long actual_id = trip_ids.get(position);
+                    Intent view_trip_intent = new Intent(getApplicationContext(), ViewTripActivity.class);
+                    view_trip_intent.putExtra("id", actual_id);
+                    startActivity(view_trip_intent);
+                } catch (Exception e) {
+                    Log.i(TAG, "Exception in setOnItemClickListener: " + e.toString());
+                    Toast.makeText(TripHistoryActivity.this, "Exception in setOnItemClickListener: "
+                            + e.toString(), Toast.LENGTH_LONG).show();
+                }
 
-        layout_list_of_trips.setOnItemClickListener(new AdapterView.OnItemClickListener()
+                /*TextView text_view = (TextView) view;
+                String str = "Position: " + position + "\nID: " + id;
+                Toast.makeText(TripHistoryActivity.this, str, Toast.LENGTH_SHORT).show();*/
+            }
+        });
+
+        layout_of_current_trips.setAdapter(current_adapter);
+        layout_of_current_trips.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 try
                 {
-                    //int actual_id = (int)id + 1;
                     long actual_id = trip_ids.get(position);
                     Intent view_trip_intent = new Intent(getApplicationContext(), ViewTripActivity.class);
                     view_trip_intent.putExtra("id", actual_id);
@@ -78,10 +102,6 @@ public class TripHistoryActivity extends Activity
                     Toast.makeText(TripHistoryActivity.this, "Exception in setOnItemClickListener: "
                             + e.toString(), Toast.LENGTH_LONG).show();
                 }
-
-                /*TextView text_view = (TextView) view;
-                String str = "Position: " + position + "\nID: " + id;
-                Toast.makeText(TripHistoryActivity.this, str, Toast.LENGTH_SHORT).show();*/
             }
         });
     }

@@ -29,8 +29,31 @@ public class ViewTripActivity extends Activity {
 
         Intent newintent = getIntent();
         
-        Trip trip = getTrip(newintent);
+        final Trip trip = getTrip(newintent);
         viewTrip(trip);
+
+        final Button toggle_current_trip = (Button) findViewById(R.id.view_trip_toggle_current);
+
+        toggle_current_trip.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                TripDatabaseHelper db = new TripDatabaseHelper(getApplicationContext());
+                if (!trip.isCurrent())
+                {
+                    trip.setAsCurrentTrip();
+                    db.MakeTripCurrent(trip);
+                    toggle_current_trip.setText("Remove from current");
+                }
+                else
+                {
+                    trip.notCurrentAnymore();
+                    db.RemoveFromCurrent(trip);
+                    toggle_current_trip.setText("Set as current");
+                }
+            }
+        });
     }
     
     /**
@@ -77,6 +100,17 @@ public class ViewTripActivity extends Activity {
                 String person_description = "* " + p.getPersonName() + ": " + p.getPhoneNumber() + "; "
                         + p.getEmailAddress() + "\n";
                 trip_attendees.setText(trip_attendees.getText() + person_description);
+            }
+
+            Button toggle_current = (Button) findViewById(R.id.view_trip_toggle_current);
+
+            if (trip.isCurrent())
+            {
+                toggle_current.setText("Remove from current");
+            }
+            else
+            {
+                toggle_current.setText("Set as current");
             }
         }
         catch (Exception e)
