@@ -25,13 +25,13 @@
                 android:textSize="25sp"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:id="@+id/view_trip_name"/>
+                android:id="@+id/CURRENT_view_trip_name"/>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Toggle current - OFF"
-                android:id="@+id/view_trip_toggle_current"/>
+                android:id="@+id/CURRENT_view_trip_toggle_current"/>
 
         </LinearLayout>
 
@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="null"
-                android:id="@+id/view_trip_destination"/>
+                android:id="@+id/CURRENT_view_trip_destination"/>
 
         </LinearLayout>
 
@@ -69,9 +69,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="null"
-                android:id="@+id/view_trip_datetime"/>
+                android:id="@+id/CURRENT_view_trip_datetime"/>
 
         </LinearLayout>
+
+
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -81,7 +83,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Attendees:"
+                android:text="Attendee updates:"
                 android:textStyle="bold"/>
 
         </LinearLayout>
@@ -96,7 +98,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:id="@+id/attendees_view_text"/>
+                android:id="@+id/CURRENT_attendees_update_text"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Attendee contact info:"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingLeft="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/CURRENT_attendees_view_text"/>
 
         </LinearLayout>
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -21,6 +22,10 @@ import java.util.ArrayList;
 public class TripHistoryActivity extends Activity
 {
     private static final String TAG = "TripHistoryActivity";
+    private ListView layout_list_of_trips;
+    private ListView layout_of_current_trips;
+    private TripDatabaseHelper db_helper;
+    private ArrayAdapter<String> current_adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -28,10 +33,10 @@ public class TripHistoryActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_history);
         setTitle("ETA: Trip History");
-        ListView layout_list_of_trips = (ListView) findViewById(R.id.list_of_trips);
-        ListView layout_of_current_trips = (ListView) findViewById(R.id.list_of_current_trips);
+        layout_list_of_trips = (ListView) findViewById(R.id.list_of_trips);
+        layout_of_current_trips = (ListView) findViewById(R.id.list_of_current_trips);
 
-        TripDatabaseHelper db_helper = new TripDatabaseHelper(getApplicationContext());
+        db_helper = new TripDatabaseHelper(getApplicationContext());
         ArrayList<Trip> trips = db_helper.GetAllTrips();
 
         ArrayList<String> trip_titles = new ArrayList<String>();
@@ -56,7 +61,7 @@ public class TripHistoryActivity extends Activity
                 current_trip_ids.add(t.getTripID());
             }
         }
-        ArrayAdapter<String> current_adapter = new ArrayAdapter<String>(
+        current_adapter = new ArrayAdapter<String>(
                 this,
                 R.layout.trip_row,
                 current_trip_titles);
@@ -92,9 +97,9 @@ public class TripHistoryActivity extends Activity
                 try
                 {
                     long actual_id = current_trip_ids.get(position);
-                    Intent view_trip_intent = new Intent(getApplicationContext(), ViewTripActivity.class);
-                    view_trip_intent.putExtra("id", actual_id);
-                    startActivity(view_trip_intent);
+                    Intent view_current_trip_intent = new Intent(getApplicationContext(), ViewCurrentTripActivity.class);
+                    view_current_trip_intent.putExtra("id", actual_id);
+                    startActivity(view_current_trip_intent);
                 }
                 catch (Exception e)
                 {
@@ -104,5 +109,13 @@ public class TripHistoryActivity extends Activity
                 }
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ViewGroup vg = (ViewGroup) findViewById(R.id.list_of_current_trips);
+        vg.invalidate();
+        //current_adapter.notifyDataSetChanged();
     }
 }
